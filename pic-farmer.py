@@ -4,8 +4,6 @@ import sys
 import requests
 
 # import typing
-result = []
-api = ['https://placekitten.com/g', 'http://placehold.it/']
 
 
 def farm_pics(lo, hi, pi):
@@ -23,16 +21,17 @@ def farm_pics(lo, hi, pi):
         L, H = rnd(lo, hi), rnd(lo, hi)
         x = requests.get('https://placekitten.com/g/' + str(L) + '/' + str(H))
         assert(x.status_code == 200), "Couldn't reach placeKitten in hit{}\n".format(i)
-    
+ 
         if x.text is '':  # If image couldn't be served, get a boring image
             x = requests.get('https://placehold.it/' + str(L) + 'x' + str(H))
             assert(x.status_code == 200), "Couldn't reach placeHold in hit{}\n".format(i)
 
-    filename = '{}.png'.format(i)
+        filename = '{}.jpg'.format(i)
 
-    # Writes it to a file
-    with open(filename, "wb") as f:
-        f.write(x.content)
+        # Writes it to a file
+        with open(filename, "wb") as f:
+            f.write(x.content)
+        print('Wrote {}.jpg'.format(i))
 
 
 if __name__ == '__main__':
@@ -40,7 +39,7 @@ if __name__ == '__main__':
     if len(sys.argv) != 4:
         sys.stderr.write('Usage ./pic-farmer.py <lower-limit> <higher-limit> <number of pics>\n')
         sys.exit(-1)
- 
+
     try:
         low  = int(sys.argv[1])
         high = int(sys.argv[2])
