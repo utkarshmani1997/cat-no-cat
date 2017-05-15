@@ -9,7 +9,7 @@ def farm_pics(lo, hi, pi):
     '''Ensures that *pi* number of images are created and stored in the current directory.
 
     :lo lower bound of picture dimension
-    :hi higer bound of picture dimension
+    :hi higher bound of picture dimension
     :pi number of pics to be downloaded
     '''
     rnd = random.randint
